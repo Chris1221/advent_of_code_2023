@@ -1,0 +1,11 @@
+[package]
+name = "aoc23"
+version = "0.1.0"
+authors = ["Christopher Cole <chris.c.1221@gmail.com>"]
+description = "Solutions to the advent of code 2023"
+repository = "https://github.com/Chris1221/advent_of_code_2023"
+edition = "2018"
+readme = "README.md"
+
+[dependencies]
+structopt = "0.3.21"
