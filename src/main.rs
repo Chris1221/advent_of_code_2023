@@ -14,13 +14,19 @@ struct Opt {
     /// Challenge to run
     #[structopt(short, long)]
     challenge: u8,
+
+    /// Input file
+    #[structopt(short, long)]
+    input: String,
 }
 
-fn main() {
+fn main() -> Result<(), std::io::Error> {
     let opt = Opt::from_args();
 
     match opt.day {
-        1 => day1::day1(opt.challenge),
-        _ => println!("Day {} not implemented", opt.day),
-    }
+        1 => day1::day1(opt.challenge, &opt.input),
+        _ => 0 as u32,
+    };
+
+    Ok(())
 }
