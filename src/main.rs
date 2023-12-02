@@ -1,7 +1,6 @@
 //! # Advent of code 2023
 
 mod days;
-use days::day1;
 use structopt::StructOpt;
 
 #[derive(StructOpt)]
@@ -24,7 +23,8 @@ fn main() -> Result<(), std::io::Error> {
     let opt = Opt::from_args();
 
     match opt.day {
-        1 => day1::day1(opt.challenge, &opt.input),
+        1 => days::day1::day(opt.challenge, &opt.input),
+        2 => days::day2::day(opt.challenge, &opt.input),
         _ => 0 as u32,
     };
 

@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
 
-pub fn day1(challenge: u8, data: &str) -> u32 {
+pub fn day(challenge: u8, data: &str) -> u32 {
     match challenge {
         1 => challenge_1(data),
         2 => challenge_2(data),
