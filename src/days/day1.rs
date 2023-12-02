@@ -6,7 +6,7 @@ pub fn day(challenge: u8, data: &str) -> u32 {
     match challenge {
         1 => challenge_1(data),
         2 => challenge_2(data),
-        _ => 1 as u32,
+        _ => 1_u32,
     }
 }
 
@@ -33,7 +33,7 @@ fn challenge_1(data: &str) -> u32 {
 
         for char in line.chars() {
             // If the char is a digit then I need to store it
-            if char.is_digit(10) {
+            if char.is_ascii_digit() {
                 number.push(char);
             }
         }
@@ -49,8 +49,8 @@ fn challenge_1(data: &str) -> u32 {
 
         let value: u32 = real_number.parse::<u32>().unwrap();
 
-        print!(
-            "For line {line} the value is {value}\n",
+        println!(
+            "For line {line} the value is {value}",
             line = line,
             value = value
         );
@@ -60,7 +60,7 @@ fn challenge_1(data: &str) -> u32 {
 
     print!("Day 1 challenge 1: {total}", total = total);
 
-    return total;
+    total
 }
 
 fn parse_number(number: &str) -> char {
@@ -118,7 +118,7 @@ fn challenge_2(data: &str) -> u32 {
         for char in line.chars() {
             // This is the return early case
             // where the char is a digit.
-            if char.is_digit(10) {
+            if char.is_ascii_digit() {
                 number.push(char);
                 buffer = "".to_string();
             }
@@ -167,8 +167,8 @@ fn challenge_2(data: &str) -> u32 {
 
         let value: u32 = real_number.parse::<u32>().unwrap();
 
-        print!(
-            "For line {line} the value is {value}\n",
+        println!(
+            "For line {line} the value is {value}",
             line = line,
             value = value
         );
@@ -178,5 +178,5 @@ fn challenge_2(data: &str) -> u32 {
 
     print!("Day 1 challenge 1: {total}", total = total);
 
-    return total;
+    total
 }

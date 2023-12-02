@@ -7,18 +7,18 @@ pub fn day(challenge: u8, data: &str) -> u32 {
     match challenge {
         1 => challenge_1(data),
         2 => challenge_2(data),
-        _ => 1 as u32,
+        _ => 1_u32,
     }
 }
 
 fn get_game_index(line: &str) -> u32 {
-    let split_line: Vec<&str> = line.split(":").collect();
+    let split_line: Vec<&str> = line.split(':').collect();
 
     // Now get the number
-    let game_index: Vec<&str> = split_line[0].split(" ").collect();
+    let game_index: Vec<&str> = split_line[0].split(' ').collect();
     let number = game_index[1].parse::<u32>().unwrap();
 
-    return number;
+    number
 }
 /// The input looks like this
 /// Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
@@ -28,19 +28,19 @@ fn assemble_draws(line: &str) -> HashMap<u32, HashMap<&str, u32>> {
     let mut draws: HashMap<u32, HashMap<&str, u32>> = HashMap::new();
 
     // Split the line on the semicolon to get the "games"
-    let split_line: Vec<&str> = line.split(";").collect();
+    let split_line: Vec<&str> = line.split(';').collect();
 
     // For each of the games, we need to split by comma
     for (idx, game) in split_line.iter().enumerate() {
-        let split_game: Vec<&str> = game.split(",").collect();
+        let split_game: Vec<&str> = game.split(',').collect();
 
         let mut game_draws: HashMap<&str, u32> = HashMap::new();
 
         for draw in split_game {
             let trimmed: &str = draw.trim();
 
-            let color = trimmed.split(" ").collect::<Vec<&str>>()[1].trim();
-            let number = trimmed.split(" ").collect::<Vec<&str>>()[0]
+            let color = trimmed.split(' ').collect::<Vec<&str>>()[1].trim();
+            let number = trimmed.split(' ').collect::<Vec<&str>>()[0]
                 .trim()
                 .parse::<u32>()
                 .unwrap();
@@ -56,7 +56,7 @@ fn assemble_draws(line: &str) -> HashMap<u32, HashMap<&str, u32>> {
         draws.insert(idx as u32, game_draws);
     }
 
-    return draws;
+    draws
 }
 
 /// Make a hashmap with the totals for each colour.
@@ -70,12 +70,12 @@ fn make_totals(red: u32, green: u32, blue: u32) -> HashMap<&'static str, u32> {
     totals.insert("green", green);
     totals.insert("blue", blue);
 
-    return totals;
+    totals
 }
 
 fn compare_to_totals(totals: &HashMap<&str, u32>, draws: HashMap<u32, HashMap<&str, u32>>) -> bool {
     // Loop over the draws hashmap and compare the values to the totals
-    for (game, draw) in draws {
+    for (_game, draw) in draws {
         for (color, number) in draw {
             // if cfg!(debug_assertions) {
             //     println!("Game: {}", game);
@@ -89,7 +89,7 @@ fn compare_to_totals(totals: &HashMap<&str, u32>, draws: HashMap<u32, HashMap<&s
         }
     }
 
-    return true;
+    true
 }
 
 fn challenge_1(data: &str) -> u32 {
@@ -114,7 +114,7 @@ fn challenge_1(data: &str) -> u32 {
     for line in values {
         // Split the line on ":" to get the game
         // index and the draws.
-        let split_line: Vec<&str> = line.split(":").collect();
+        let split_line: Vec<&str> = line.split(':').collect();
 
         let index: u32 = get_game_index(&line);
         let draws: HashMap<u32, HashMap<&str, u32>> = assemble_draws(split_line[1]);
@@ -133,12 +133,12 @@ fn challenge_1(data: &str) -> u32 {
 
     print!("Day 2 challenge 1: {total}", total = total);
 
-    return total;
+    total
 }
 
 /// Find the power of the cubes
 fn find_power_of_cubes(draws: HashMap<u32, HashMap<&str, u32>>) -> u32 {
-    let mut power = 0;
+    let _power = 0;
 
     // Create a hashmap to hold the maximum value
     let mut maxes: HashMap<&str, u32> = HashMap::new();
@@ -150,7 +150,7 @@ fn find_power_of_cubes(draws: HashMap<u32, HashMap<&str, u32>>) -> u32 {
 
     // Loop over the draws hashmap and find the maximum
     // value in each game.
-    for (game, draw) in draws {
+    for (_game, draw) in draws {
         for (color, number) in draw {
             if maxes.get(color).unwrap() < &number {
                 maxes.insert(color, number);
@@ -162,7 +162,7 @@ fn find_power_of_cubes(draws: HashMap<u32, HashMap<&str, u32>>) -> u32 {
     let values: Vec<u32> = maxes.values().cloned().collect();
     let power: u32 = values.iter().product();
 
-    return power;
+    power
 }
 
 fn challenge_2(data: &str) -> u32 {
@@ -173,7 +173,7 @@ fn challenge_2(data: &str) -> u32 {
     let reader = BufReader::new(file);
 
     // TIL there are no named parmaeters in Rust.
-    let totals: HashMap<&str, u32> = make_totals(12, 13, 14);
+    let _totals: HashMap<&str, u32> = make_totals(12, 13, 14);
 
     // Read the file line by line into a vector of strings.
     for line in reader.lines() {
@@ -187,7 +187,7 @@ fn challenge_2(data: &str) -> u32 {
     for line in values {
         // Split the line on ":" to get the game
         // index and the draws.
-        let split_line: Vec<&str> = line.split(":").collect();
+        let split_line: Vec<&str> = line.split(':').collect();
 
         let index: u32 = get_game_index(&line);
         let draws: HashMap<u32, HashMap<&str, u32>> = assemble_draws(split_line[1]);
@@ -208,5 +208,5 @@ fn challenge_2(data: &str) -> u32 {
 
     print!("Day 2 challenge 1: {total}", total = total);
 
-    return total;
+    total
 }
