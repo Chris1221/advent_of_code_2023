@@ -25,6 +25,7 @@ fn main() -> Result<(), std::io::Error> {
     match opt.day {
         1 => days::day1::day(opt.challenge, &opt.input),
         2 => days::day2::day(opt.challenge, &opt.input),
+        3 => days::day3::day(opt.challenge, &opt.input),
         _ => 0_u32,
     };
 
