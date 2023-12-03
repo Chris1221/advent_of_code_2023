@@ -16,9 +16,9 @@ fn get_game_index(line: &str) -> u32 {
 
     // Now get the number
     let game_index: Vec<&str> = split_line[0].split(' ').collect();
-    let number = game_index[1].parse::<u32>().unwrap();
+    
 
-    number
+    game_index[1].parse::<u32>().unwrap()
 }
 /// The input looks like this
 /// Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue

@@ -1,6 +1,6 @@
-use core::cmp::max;
+
 use core::cmp::min;
-use core::num;
+
 use ndarray::s;
 use ndarray::Array2;
 use std::collections::HashMap;
@@ -18,7 +18,7 @@ pub fn day(challenge: u8, data: &str) -> u32 {
 
 fn challenge_1(data: &str) -> u32 {
     // Read in the data file.
-    let mut values: Vec<String> = Vec::new();
+    let _values: Vec<String> = Vec::new();
     let file = File::open(data).expect("Unable to open file");
     let reader = BufReader::new(file);
 
@@ -72,7 +72,7 @@ fn challenge_1(data: &str) -> u32 {
                 if number_start_c_idx == 0 {
                     number_start_c_idx = cidx;
                 }
-            } else if number.len() > 0 {
+            } else if !number.is_empty() {
                 // These will be the search indices
                 // The extra bit is because usze cannot be negative
 
@@ -96,7 +96,7 @@ fn challenge_1(data: &str) -> u32 {
                     for c in upper_c_idx..lower_c_idx + 1 {
                         // println!("Checking cell: [{}, {}]", r, c);
                         // println!("Cell value: {}", array[[r, c]]);
-                        if (array[[r, c]] != '.') && (!array[[r, c]].is_digit(10)) {
+                        if (array[[r, c]] != '.') && (!array[[r, c]].is_ascii_digit()) {
                             // println!("Found a number: {}", number);
 
                             total += number.parse::<u32>().unwrap();
@@ -135,7 +135,7 @@ fn challenge_1(data: &str) -> u32 {
 
         // Edge case for numbers at the end of rows
         // if the number is valid
-        if number.len() > 0 {
+        if !number.is_empty() {
             let mut upper_r_idx: usize = 0;
             if ridx > 0 {
                 upper_r_idx = ridx - 1;
@@ -156,7 +156,7 @@ fn challenge_1(data: &str) -> u32 {
                 for c in upper_c_idx..lower_c_idx + 1 {
                     // println!("Checking cell: [{}, {}]", r, c);
                     // println!("Cell value: {}", array[[r, c]]);
-                    if (array[[r, c]] != '.') && (!array[[r, c]].is_digit(10)) {
+                    if (array[[r, c]] != '.') && (!array[[r, c]].is_ascii_digit()) {
                         // println!("Found a number: {}", number);
 
                         total += number.parse::<u32>().unwrap();
@@ -195,7 +195,7 @@ fn challenge_1(data: &str) -> u32 {
 
 fn challenge_2(data: &str) -> u32 {
     // Read in the data file.
-    let mut values: Vec<String> = Vec::new();
+    let _values: Vec<String> = Vec::new();
     let file = File::open(data).expect("Unable to open file");
     let reader = BufReader::new(file);
 
@@ -227,7 +227,7 @@ fn challenge_2(data: &str) -> u32 {
 
     let mut total = 0;
 
-    let mut first_partner = 0;
+    let _first_partner = 0;
 
     // This is kind of absurd but I'm going to store the gear location
     // as an array where the key is the location and the value is the
@@ -256,7 +256,7 @@ fn challenge_2(data: &str) -> u32 {
                 if number_start_c_idx == 0 {
                     number_start_c_idx = cidx;
                 }
-            } else if number.len() > 0 {
+            } else if !number.is_empty() {
                 // These will be the search indices
                 // The extra bit is because usze cannot be negative
 
@@ -290,7 +290,12 @@ fn challenge_2(data: &str) -> u32 {
                             // already be in the hashmap. If it is not then we need to
                             // store the location and the first partner number.
 
-                            if gear_locations.contains_key(&[r, c]) {
+                            if let std::collections::hash_map::Entry::Vacant(e) = gear_locations.entry([r, c]) {
+                                // the location is not in the hashmap so we need to
+                                // store the location and the first partner number.
+                                println!("Storing gear location [{}, {}]", r, c);
+                                e.insert(number.parse::<u32>().unwrap());
+                            } else {
                                 // the location is already in the hashmap so we need to
                                 // multiply the two numbers and add to the total
 
@@ -299,11 +304,6 @@ fn challenge_2(data: &str) -> u32 {
                                 let second_partner = number.parse::<u32>().unwrap();
 
                                 total += first_partner * second_partner;
-                            } else {
-                                // the location is not in the hashmap so we need to
-                                // store the location and the first partner number.
-                                println!("Storing gear location [{}, {}]", r, c);
-                                gear_locations.insert([r, c], number.parse::<u32>().unwrap());
                             }
 
                             // Reset the number and the start index
@@ -340,7 +340,7 @@ fn challenge_2(data: &str) -> u32 {
 
         // Edge case for numbers at the end of rows
         // if the number is valid
-        if number.len() > 0 {
+        if !number.is_empty() {
             let mut upper_r_idx: usize = 0;
             if ridx > 0 {
                 upper_r_idx = ridx - 1;
@@ -361,12 +361,17 @@ fn challenge_2(data: &str) -> u32 {
                 for c in upper_c_idx..lower_c_idx + 1 {
                     // println!("Checking cell: [{}, {}]", r, c);
                     // println!("Cell value: {}", array[[r, c]]);
-                    if (array[[r, c]] == '*') {
+                    if array[[r, c]] == '*' {
                         // println!("Found a number: {}", number);
 
                         println!("Gears: {:?}", gear_locations);
 
-                        if gear_locations.contains_key(&[r, c]) {
+                        if let std::collections::hash_map::Entry::Vacant(e) = gear_locations.entry([r, c]) {
+                            // the location is not in the hashmap so we need to
+                            // store the location and the first partner number.
+                            println!("Storing gear location [{}, {}]", r, c);
+                            e.insert(number.parse::<u32>().unwrap());
+                        } else {
                             // the location is already in the hashmap so we need to
                             // multiply the two numbers and add to the total
 
@@ -375,11 +380,6 @@ fn challenge_2(data: &str) -> u32 {
                             let second_partner = number.parse::<u32>().unwrap();
 
                             total += first_partner * second_partner;
-                        } else {
-                            // the location is not in the hashmap so we need to
-                            // store the location and the first partner number.
-                            println!("Storing gear location [{}, {}]", r, c);
-                            gear_locations.insert([r, c], number.parse::<u32>().unwrap());
                         }
 
                         // Reset the number and the start index
