@@ -181,6 +181,8 @@ fn challenge_2(data: &str) -> u32 {
                 // Now add current_card_multiplier to the next card number
                 let next_card_multiplier = multipliers.entry(next_card_number).or_insert(1);
                 *next_card_multiplier += current_card_multiplier;
+
+                println!("{:?}", multipliers);
             }
         }
     }
