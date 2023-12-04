@@ -198,9 +198,8 @@ fn challenge_2(data: &str) -> u32 {
     print!("Points: {:?}", points);
 
     for card in 1..highest_card_number + 1 {
-        let multiplier = multipliers.entry(card);
-
-        total += multiplier;
+        let multiplier = multipliers.entry(card).or_insert(1);
+        total += *multiplier;
     }
 
     // Now we iterate over the points and multiply them by the multiplier
