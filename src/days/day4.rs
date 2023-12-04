@@ -141,6 +141,8 @@ fn challenge_2(data: &str) -> u32 {
     // points by the multiplier.
     let mut points: HashMap<u32, u32> = HashMap::new();
 
+    let mut highest_card_number = 0;
+
     for line in lines.iter() {
         let card_number = get_card_number(&line.iter().collect::<String>());
         let winning_numbers = get_winning_numbers(&line.iter().collect::<String>());
@@ -149,7 +151,7 @@ fn challenge_2(data: &str) -> u32 {
         // Add 1 or increment the multiplier for the card number
         if multipliers.contains_key(&card_number) {
             let current_multiplier = multipliers.entry(card_number).or_insert(1);
-            *current_multiplier += 1;
+            // *current_multiplier += 1;
         } else {
             multipliers.insert(card_number, 1);
         }
@@ -185,16 +187,27 @@ fn challenge_2(data: &str) -> u32 {
                 println!("{:?}", multipliers);
             }
         }
+
+        // Now we need to find the highest card number
+        if card_number > highest_card_number {
+            highest_card_number = card_number;
+        }
     }
 
     print!("Multipliers: {:?}", multipliers);
     print!("Points: {:?}", points);
 
-    // Now we iterate over the points and multiply them by the multiplier
-    for (card_number, point) in points.iter() {
-        let multiplier = multipliers.entry(*card_number).or_insert(1);
-        total += *multiplier;
+    for card in 1..highest_card_number + 1 {
+        let multiplier = multipliers.entry(card);
+
+        total += multiplier;
     }
+
+    // Now we iterate over the points and multiply them by the multiplier
+    // for (card_number, point) in points.iter() {
+    //     let multiplier = multipliers.entry(*card_number).or_insert(1);
+    //     total += *multiplier;
+    // }
 
     println!("Day 4 challenge 1: {}", total);
     total
