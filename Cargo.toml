@@ -10,3 +10,4 @@ readme = "README.md"
 [dependencies]
 structopt = "0.3.21"
 ndarray = "0.15.3"
+regex = "1.3.9"
