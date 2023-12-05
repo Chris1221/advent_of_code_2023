@@ -25,7 +25,7 @@ fn get_seeds(line: &str) -> Vec<u32> {
         }
     }
 
-    println!("Found seeds {:?}", seeds);
+    // println!("Found seeds {:?}", seeds);
     seeds
 }
 
@@ -62,7 +62,7 @@ fn get_seeds_2(line: &str) -> Vec<u32> {
         }
     }
 
-    println!("Found seeds {:?}", seeds);
+    // println!("Found seeds {:?}", seeds);
     seeds
 }
 
@@ -220,7 +220,7 @@ fn challenge_2(data: &str) -> u32 {
             current_map_entry.insert(source_interval, dest);
         }
     }
-    println!("Map is {:?}", map);
+    // println!("Map is {:?}", map);
 
     // Now we need to map the seeds through the various maps to get to the locations.
     let order: Vec<&str> = [
@@ -255,10 +255,10 @@ fn challenge_2(data: &str) -> u32 {
             }
 
             if !found {
-                println!(
-                    "Seed {} not found in map {} so not doing anything",
-                    seed, map_name
-                );
+                // println!(
+                // "Seed {} not found in map {} so not doing anything",
+                // seed, map_name
+                // );
             }
 
             //
@@ -267,7 +267,7 @@ fn challenge_2(data: &str) -> u32 {
         locations.push(current_value);
     }
 
-    println!("Locations are {:?}", locations);
+    // println!("Locations are {:?}", locations);
 
     // Minimum location
     let min_location = locations.iter().min().unwrap();
